@@ -1,0 +1,61 @@
+html,
+body {
+  margin: 30px;
+  background-color: black;
+  color: white;
+  font-family: Arial;
+  font-size: 20px;
+  overflow: hidden;
+}
+
+#container {
+  width: 1500px;
+}
+
+nav {
+  background-color: lightskyblue;
+}
+
+.navText {
+  margin-left: 20px;
+  font-size: 50px;
+  color: black;
+  font-family: Cambria;
+  font-weight: bold;
+  font-style: italic;
+}
+
+#webcam {
+  display: block;
+  width: 640px;
+  height: 480px;
+}
+
+#message {
+  display: block;
+  color: yellow;
+}
+
+#pose {
+  display: block;
+}
+
+#poseName {
+  font-size: 40px;
+  text-align: center;
+}
+
+#poseImage {
+  display: block;
+  width: 300px;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#timer {
+  display: block;
+  font-size: 100px;
+  text-align: center;
+  color: grey;
+}

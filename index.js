@@ -5,6 +5,7 @@ let skeleton;
 let thirtysecs;
 let posesArray = ['1', '2', '3', '4'];
 var imgArray = new Array();
+var seconds = 10;
 
 var poseImage;
 
@@ -32,7 +33,7 @@ function setup() {
   targetLabel = '1';
   target = posesArray[poseCounter];
   $('#poseName').text('Pose #' + target);
-  timeLeft = 10;
+  timeLeft = seconds;
   $('#timer').text(timeLeft);
   errorCounter = 0;
   iterationCounter = 0;
@@ -71,7 +72,7 @@ function classifyPose() {
     brain.classify(inputs, gotResult);
   } else {
     console.log('Pose not found');
-    setTimeout(classifyPose, 100);
+    setTimeout(classifyPose, seconds * 10);
   }
 }
 
@@ -87,41 +88,41 @@ function gotResult(error, results) {
 
       console.log('Counting ' + iterationCounter);
 
-      if (iterationCounter == 10) {
+      if (iterationCounter == seconds) {
         console.log('Countdown ends');
         iterationCounter = 0;
         nextPose();
       } else {
         console.log('Countdown begins');
         timeLeft = timeLeft - 1;
-        if (timeLeft < 10) {
+        if (timeLeft < seconds) {
           $('#timer').text(timeLeft);
         } else {
           $('#timer').text(timeLeft);
         }
-        setTimeout(classifyPose, 1000);
+        setTimeout(classifyPose, seconds * 100);
       }
     } else {
       errorCounter = errorCounter + 1;
       console.log('error');
-      if (errorCounter >= 10) {
+      if (errorCounter >= seconds) {
         console.log('four errors');
         iterationCounter = 0;
-        timeLeft = 10;
-        if (timeLeft < 10) {
+        timeLeft = seconds;
+        if (timeLeft < seconds) {
           $('#timer').text(timeLeft);
         } else {
           $('#timer').text(timeLeft);
         }
         errorCounter = 0;
-        setTimeout(classifyPose, 100);
+        setTimeout(classifyPose, seconds * 10);
       } else {
-        setTimeout(classifyPose, 100);
+        setTimeout(classifyPose, seconds * 10);
       }
     }
   } else {
     console.log('Wrong pose');
-    setTimeout(classifyPose, 100);
+    setTimeout(classifyPose, seconds * 10);
   }
 }
 
@@ -168,8 +169,8 @@ function draw() {
 function nextPose() {
   if (poseCounter >= 3) {
     console.log('Well done, you have learnt all poses!');
-    $('#message').text('All poses done.');
-    $('#pose').hide();
+    $('#message').text('All poses complete. Well done!');
+    $('#pose').html('<img id="congrats" src="img/congrats.jpg" />');
   } else {
     errorCounter = 0;
     iterationCounter = 0;
@@ -181,7 +182,7 @@ function nextPose() {
     $('#message').text('Well done, next pose!');
     $('#poseImage').attr('src', 'img/' + targetLabel + '.png');
     console.log('classifying again');
-    timeLeft = 10;
+    timeLeft = seconds;
     $('#timer').text(timeLeft);
     setTimeout(classifyPose, 4000);
   }

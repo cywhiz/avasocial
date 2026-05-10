@@ -7,6 +7,7 @@
 To run AvaSocial locally, you need a web server to handle the machine learning models correctly.
 
 1. **Clone the project:**
+
    ```bash
    git clone https://github.com/your-username/avasocial.git
    cd avasocial
@@ -25,6 +26,3 @@ To run AvaSocial locally, you need a web server to handle the machine learning m
 2. **Start Session:** Click the "Start Yoga Session" button.
 3. **Strike a Pose:** Match the yoga pose shown on the screen. The AI will automatically detect when you are in the correct position.
 4. **Hold & Complete:** Hold each pose for 10 seconds. The timer will change color from Red to Green as you approach completion. Finish all poses to complete your session!
-
----
-*Created with ❤️ by the AvaSocial Team.*

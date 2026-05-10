@@ -1,41 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-    />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AvaSocial – An interactive yoga pose training app using your webcam and AI to guide you through poses in real time." />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
-    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Preconnect for faster font loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <title>AvaSocial</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Outfit:wght@400;500;700&family=Poppins:wght@300;600;700&family=Pacifico&display=swap" rel="stylesheet">
 
-  <body>
-    <div class="container">
-      <nav class="navbar">
-        <div class="navbar-brand navText">AvaSocial</div>
-      </nav>
-      <div class="row">
-        <div class="col">
-          <div id="message"></div>
+  <title>AvaSocial – AI Yoga Trainer</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Static Background -->
+  <div class="bg-animation"></div>
+
+  <div class="game-container">
+    <header class="game-header">
+      <img src="img/logo.png" alt="AvaSocial Logo" class="game-logo" />
+      <h1 class="game-title"><span class="title-ava">Ava</span><span class="title-social">Social</span></h1>
+    </header>
+
+    <!-- Instruction Screen -->
+    <div id="instruction-screen" class="instruction-overlay">
+      <div class="instruction-card">
+        <h1 class="instruction-title">
+          <span class="welcome-text">Welcome to</span>
+          <img src="img/logo.png" alt="AvaSocial Logo" class="instruction-logo" /><span class="title-ava">Ava</span><span class="title-social">Social</span>
+        </h1>
+        <ol class="instruction-list">
+          <li>Allow camera access when asked.</li>
+          <li>Set laptop screen to 90° angle and sit back to see your upper body.</li>
+          <li>Mimic the pose shown on the left.</li>
+          <li>Hold for 10 seconds to advance!</li>
+        </ol>
+        <p class="keyboard-hint">💡 Tip: Press <kbd>Enter</kbd> to start, <kbd>Space</kbd> to skip a pose</p>
+        <button id="start-btn" onclick="startGame()">Start Yoga Session</button>
+      </div>
+    </div>
+
+    <!-- Game Interface (Hidden Initially) -->
+    <div id="game-interface" class="row" style="display: none;">
+      <!-- Left Column: Instructions & Target Pose -->
+      <div class="col col-pose">
+        <div class="card glass-card">
+          <div id="message" class="pulsing-text">Loading Models...</div>
           <div id="pose">
             <div id="poseName"></div>
-            <img id="poseImage" />
-            <div id="timer"></div>
+            <img id="poseImage" alt="Target yoga pose" />
+            <div class="timer-controls">
+              <div id="timer" class="pulse-timer"></div>
+              <button id="skip-btn" onclick="skipPose()">Skip →</button>
+            </div>
           </div>
         </div>
-        <div class="col">
+      </div>
+
+      <!-- Right Column: Webcam -->
+      <div class="col col-webcam">
+        <div class="card glass-card">
+          <!-- Camera Error State -->
+          <div id="camera-error" class="camera-error" style="display:none;">
+            <div class="camera-error-icon">📷</div>
+            <h3>Camera Access Required</h3>
+            <p>Please allow camera access in your browser and <button onclick="location.reload()" class="reload-link">reload the page</button>.</p>
+          </div>
           <div id="webcam"></div>
         </div>
       </div>
     </div>
-    <script src="index.js"></script>
-  </body>
+  </div>
+
+  <!-- Libraries at the end of body for faster initial paint -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+  <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
+
+  <script src="index.js"></script>
+</body>
+
 </html>
